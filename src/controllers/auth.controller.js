@@ -1,9 +1,23 @@
+import { registerUserService } from "../services/auth.service.js";
 
-export const register= async (req,res)=>{
+export const register= async (req,res,next)=>{
 
-    console.log(req.body);
+    try{
+    const user=  await registerUserService(req.body);
     return res.status(201).json({
-         message: "Registration request received"
+         success: true,
+         message:"User registered successfully",
+         user:{
+             id: user._id,
+        name: user.name,
+        email: user.email
+    },
     });
+   
+}
+catch(error)
+{
+    next(error);
+}
 };
 

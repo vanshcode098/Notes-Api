@@ -1,4 +1,4 @@
-import zod from "zod"
+
 
 
 const validate=  (schema)=>{
@@ -6,7 +6,7 @@ const validate=  (schema)=>{
     return (req,res,next)=>{
      
         const result= schema.safeParse(req.body)
-       if(!result) 
+       if(!result.success) 
         {
                  return next(result.error);
         }
