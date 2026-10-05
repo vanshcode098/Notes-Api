@@ -5,6 +5,8 @@ import {
     logoutUserService
 } from "../services/auth.service.js";
 
+import { createNoteService } from "../services/note.service.js";
+
 
 // =========================
 // REGISTER
@@ -163,3 +165,6 @@ export const logout = async (req, res, next) => {
         next(error);
     }
 };
+
+
+
