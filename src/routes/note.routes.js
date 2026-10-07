@@ -1,9 +1,14 @@
-
 import express from "express";
 
 import { authMiddleware } from "../middleware/auth.middleware.js";
+
 import validate from "../validators/validate.midlleware.js";
-import { createNoteSchema, updateNoteSchema } from "../validators/note.validator.js";
+
+import {
+    createNoteSchema,
+    updateNoteSchema,
+    noteQuerySchema
+} from "../validators/note.validator.js";
 
 import {
     createNoteController,
@@ -19,7 +24,7 @@ const router = express.Router();
 // CREATE NOTE
 router.post(
     "/",
-    validate(createNoteSchema),
+    validate(createNoteSchema, "body"),
     authMiddleware,
     createNoteController
 );
@@ -28,6 +33,7 @@ router.post(
 // GET ALL MY NOTES
 router.get(
     "/",
+      validate(noteQuerySchema, "query"),
     authMiddleware,
     getUserNotesController
 );
@@ -44,7 +50,7 @@ router.get(
 // UPDATE NOTE
 router.patch(
     "/:id",
-    validate(updateNoteSchema),
+    validate(updateNoteSchema, "body"),
     authMiddleware,
     updateNoteController
 );
@@ -59,5 +65,4 @@ router.delete(
 
 
 export default router;
-
 

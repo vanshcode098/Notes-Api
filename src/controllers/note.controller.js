@@ -25,24 +25,38 @@ export const createNoteController = async (req, res, next) => {
 
 
 export const getUserNotesController = async (req, res, next) => {
-   
-    try{
-   
-    const notes= await getUserNotesService(
-        req.user.id
-    );
 
-    return res.status(200).json({
-        success:true,
-        message: "Notes fetched successfully",
-            notes
+    try {
 
-    });
-}
-        catch(error)
-        {
-            next(error);
-        }
+        console.log("QUERY:", req.query);
+        console.log("USER:", req.user);
+
+        const notes = await getUserNotesService(
+            req.user.id,
+            req.query.page,
+            req.query.limit,
+            req.query.search
+        );
+
+        console.log("NOTES:", notes);
+
+        return res.status(200).json({
+            success: true,
+            message: "Notes fetched successfully",
+            notes:result.notes,
+
+            pagination:{
+                page:result.page,
+                limit: result.limit,
+                totalNotes: result.totalNotes,
+                totalPages: result.totalPages
+            }
+        });
+
+    } catch (error) {
+        console.log("CONTROLLER ERROR:", error);
+        next(error);
+    }
 };
 
 export const getNoteByIdController = async (req, res, next) => {

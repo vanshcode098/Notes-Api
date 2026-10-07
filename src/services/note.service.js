@@ -17,10 +17,14 @@ export const createNoteService = async (data, userId) => {
 };
 
 
+export const getUserNotesService = async (userId, page, limit,search) => {
 
-export const getUserNotesService = async (userId) => {
-
-    const notes = await findNotesByUserId(userId);
+    const notes = await findNotesByUserId(
+        userId,
+        page,
+        limit,
+        search
+    );
 
     return notes;
 };

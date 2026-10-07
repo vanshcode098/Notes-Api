@@ -13,14 +13,14 @@ const router= express.Router();
 // Registration
 router.post(
     "/register",
-    validate(registerSchema),
+    validate(registerSchema,"body"),
     register
 );
 
 // Login
 router.post(
     "/login",
-    validate(loginSchema),
+    validate(loginSchema,"body"),
     login
 );
 
